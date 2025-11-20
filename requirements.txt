@@ -4,3 +4,6 @@ streamlit-folium>=0.11
 branca>=0.6
 pandas
 plotly
+streamlit
+pandas
+plotly
