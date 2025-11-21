@@ -5,14 +5,15 @@ import plotly.express as px
 st.set_page_config(page_title="Most Fatty Menu by Company", layout="wide")
 
 st.title("🍔 패스트푸드 회사별 가장 지방(Fat)이 높은 메뉴")
-st.write("CSV 파일은 반드시 앱 루트에 `FastFoodNutritionMenuV2.csv` 로 위치해야 합니다.")
+st.write("CSV 파일은 반드시 앱 루트에 `fastfood.csv` 로 위치해야 합니다.")
 
 # -----------------------
 # 📂 CSV 불러오기
 # -----------------------
 @st.cache_data
 def load_data():
-    df = pd.read_csv("../FastFoodNutritionMenuV2.csv")
+    # CSV 파일명 변경 적용
+    df = pd.read_csv("../fastfood.csv")
 
     # 컬럼명 정리 (줄바꿈 제거)
     df.columns = [c.replace("\n", " ").strip() for c in df.columns]
@@ -73,11 +74,3 @@ fig = px.bar(
     hover_data=["Calories", "Sodium (mg)", "Protein (g)"],
     template="plotly_white"
 )
-
-fig.update_layout(
-    xaxis_title="Menu Item",
-    yaxis_title="Total Fat (g)",
-    height=500
-)
-
-st.plotly_chart(fig, use_container_width=True)
