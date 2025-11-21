@@ -9,7 +9,7 @@ st.title("패스트푸드 회사별 '가장 지방(Fat)'한 메뉴 보기")
 st.markdown("CSV 파일은 앱 루트에 `FastFoodNutritionMenuV2.csv`로 위치해야 합니다.")
 
 @st.cache_data
-def load_data(path: str = "../FastFoodNutritionMenuV2.csv") -> pd.DataFrame:
+def load_data(path: str = "/mnt/data/FastFoodNutritionMenuV2.csv") -> pd.DataFrame:
     df = pd.read_csv(path)
     # 컬럼명 정리: 공백/줄바꿈 제거
     df.columns = [c.strip().replace("\n", " ") for c in df.columns]
@@ -41,11 +41,13 @@ def load_data(path: str = "../FastFoodNutritionMenuV2.csv") -> pd.DataFrame:
     return df
 
 # 데이터 로드
-DATA_PATH = "/mnt/data/FastFoodNutritionMenuV2.csv"  # 앱 루트에 위치
+# 상위 폴더에 CSV 파일이 있을 경우
+DATA_PATH = "../FastFoodNutritionMenuV2.csv"  # 루트 폴더 기준  # 앱 루트에 위치
 try:
     df = load_data(DATA_PATH)
 except FileNotFoundError:
-    st.error(f"CSV 파일을 찾을 수 없습니다: {DATA_PATH}\n앱 루트에 'FastFoodNutritionMenuV2.csv' 파일을 올려주세요.")
+    st.error(f"CSV 파일을 찾을 수 없습니다: {DATA_PATH}  \n상위 폴더(../)에 위치한지 확인하세요.: {DATA_PATH}  
+루트 폴더에 위치한지 확인하세요.")(f"CSV 파일을 찾을 수 없습니다: {DATA_PATH}\n앱 루트에 'FastFoodNutritionMenuV2.csv' 파일을 올려주세요.")
     st.stop()
 
 # 사이드바: 회사 선택
@@ -98,4 +100,5 @@ st.write("CSV 경로:", DATA_PATH)
 
 # 하단: 간단한 설명
 st.caption("참고: 데이터의 컬럼명이 dataset 파일에 따라 다를 수 있습니다. 'Total Fat' 관련 컬럼이 자동 매핑되며, 숫자 변환 실패 항목은 NaN으로 처리됩니다.")
+
 
