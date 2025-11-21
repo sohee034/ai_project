@@ -9,7 +9,7 @@ st.title("패스트푸드 회사별 '가장 지방(Fat)'한 메뉴 보기")
 st.markdown("CSV 파일은 앱 루트에 `FastFoodNutritionMenuV2.csv`로 위치해야 합니다.")
 
 @st.cache_data
-def load_data(path: str = "/mnt/data/FastFoodNutritionMenuV2.csv") -> pd.DataFrame:
+def load_data(path: str = "../FastFoodNutritionMenuV2.csv") -> pd.DataFrame:
     df = pd.read_csv(path)
     # 컬럼명 정리: 공백/줄바꿈 제거
     df.columns = [c.strip().replace("\n", " ") for c in df.columns]
